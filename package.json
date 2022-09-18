@@ -1,0 +1,51 @@
+{
+  "name": "snu-coin-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "pre-commit": "lint-staged",
+    "start:dev": "nodemon --exec babel-node src/server.js",
+    "prepare": "husky install",
+    "predeploy": "babel src --out-dir build",
+    "deploy": "pm2 start build/server.js -e err.log -o out.log"
+  },
+  "author": "",
+  "license": "ISC",
+  "lint-staged": {
+    "*.(js|pug)": [
+      "prettier --loglevel warn --write"
+    ]
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.16.5",
+    "axios": "0.24.0",
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "2.8.5",
+    "envalid": "7.2.2",
+    "express": "4.17.1",
+    "express-validator": "6.13.0",
+    "helmet": "4.6.0",
+    "hpp": "0.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "6.0.13",
+    "morgan": "1.10.0",
+    "pm2": "^5.1.2",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "7.16.0",
+    "@babel/node": "7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.5",
+    "@babel/preset-env": "7.16.4",
+    "@prettier/plugin-pug": "^1.19.0",
+    "babel-plugin-module-resolver": "4.1.0",
+    "dotenv": "10.0.0",
+    "husky": "^6.0.0",
+    "lint-staged": "12.1.2",
+    "nodemon": "2.0.15",
+    "prettier": "^2.4.1"
+  }
+}

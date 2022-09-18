@@ -1,0 +1,47 @@
+extends base/base.pug
+
+block contents
+  head
+    title login
+  style.
+    h1 {
+      text-align: center;
+      margin: 30px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input {
+      width: 300px;
+      padding: 18px;
+      margin-bottom: 10px;
+      border: 1px solid #cccccc;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    .submit {
+      padding: 15px 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #6998ab;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      margin: 30px 10px;
+    }
+
+    .submit:hover {
+      cursor: pointer;
+    }
+
+  body
+    h1 로그인
+    form(action="/login", method="post")
+      input(type="text", name="userName", placeholder="Username")
+      input(type="password", name="password", placeholder="Password")
+      input.submit(type="submit", value="Log in")

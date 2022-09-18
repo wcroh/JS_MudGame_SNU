@@ -1,0 +1,135 @@
+extends base/base.pug
+
+block contents
+  style.
+    .location {
+      margin: 20px;
+      font-size: 18px;
+      text-align: center;
+      color: #6998ab;
+      font-weight: bold;
+    }
+
+    .battle-title {
+      font-weight: bold;
+      font-size: 26px;
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .player-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .player {
+      margin: 0 20px;
+      border: 1px solid #6998ab;
+      padding: 20px;
+      width: 150px;
+    }
+
+    .player-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #6998ab;
+    }
+
+    .turn {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .button-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .button-battle {
+      padding: 15px 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #6998ab;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      margin: 30px 10px;
+    }
+
+    .button-battle:hover {
+      cursor: pointer;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .button-location {
+      width: 50px;
+      height: 50px;
+      border: none;
+      border-radius: 5px;
+      background-color: #6998ab;
+      color: white;
+      font-weight: bold;
+      margin: 10px;
+    }
+
+    .button-location:hover {
+      cursor: pointer;
+    }
+
+  body
+    .location 🔥Lv.#{ level }🔥 현재 위치: (#{ x }, #{ y })
+
+    .player-wrap
+      .player
+        .player-title 나의 스탯
+        div ✓ HP: #{ playerHp } / 10
+        div ✓ 공격력: #{ playerStr }
+        div ✓ 방어력: #{ playerDef }
+
+      .player
+        .player-title 몬스터 스탯
+        if isMonsterDie
+          div ✓ HP: 0 / 10
+        else
+          div ✓ HP: #{ monsterHp } / 10
+        div ✓ 공격력: #{ monsterStr }
+        div ✓ 방어력: #{ monsterDef }
+
+    if isPlayerDie
+      .battle-title 사망하였습니다. 게임을 다시 시작하시겠습니까?
+      .button-wrap
+        a(href="/playground/restart")
+          button.button-battle 다시 시작하기
+
+    else if isMonsterDie
+      .battle-title 🎊 #{ monster }를 물리쳤습니다! 🎊
+      .button-wrap
+        if x !== 9
+          form(action="/playground/east", method="post")
+            input.button-location(type="submit", value="➡ 동")
+        if x !== 0
+          form(action="/playground/west", method="post")
+            input.button-location(type="submit", value="⬅ 서")
+        if y !== 0
+          form(action="/playground/west", method="post")
+            input.button-location(type="submit", value="⬇ 남")
+        if y !== 9
+          form(action="/playground/north", method="post")
+            input.button-location(type="submit", value="⬆ 북")
+
+    else
+      .battle-title 🐗 #{ monster }와 전투 중입니다!
+      .turn #{ turn }번째 턴
+
+      .button-wrap
+        a(href="/playground/battle/attack")
+          button.button-battle.button-attack 공격하기
+
+        if isGiveUp
+          a(href="/playground/battle/giveup")
+            button.button-battle.button-giveup 도망가기

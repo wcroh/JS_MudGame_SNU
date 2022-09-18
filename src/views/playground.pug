@@ -1,0 +1,138 @@
+extends base/base.pug
+
+block contents
+  head
+    title Document
+  style.
+    .location {
+      margin: 20px;
+      font-size: 18px;
+      text-align: center;
+      color: #6998ab;
+      font-weight: bold;
+    }
+
+    .inventory {
+      text-align: center;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+
+    .player-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .player {
+      margin: 0 20px;
+      border: 1px solid #6998ab;
+      padding: 20px;
+      width: 150px;
+    }
+
+    .player-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #6998ab;
+    }
+
+    .message {
+      font-size: 20px;
+      text-align: center;
+      margin: 20px;
+      font-weight: bold;
+    }
+
+    .button-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .button-battle {
+      padding: 15px 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #6998ab;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      margin: 30px 10px;
+    }
+
+    .button-battle:hover {
+      cursor: pointer;
+    }
+
+    .button-location {
+      width: 50px;
+      height: 50px;
+      border: none;
+      border-radius: 5px;
+      background-color: #6998ab;
+      color: white;
+      font-weight: bold;
+      margin: 10px;
+    }
+
+    .button-location:hover {
+      cursor: pointer;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+  body
+    .location 🔥Lv.#{ level }🔥 현재 위치: (#{ x }, #{ y })
+
+    if inventory
+      .inventory 📋인벤토리: #{ inventory }
+    else
+      .inventory 🗑인벤토리가 비었습니다.
+
+    .player-wrap
+      .player
+        .player-title 나의 스탯
+        div ✓ HP: #{ hp } / 10
+        div ✓ 공격력: #{ str }
+        div ✓ 방어력: #{ def }
+
+    .message #{ locationMessage }
+
+    if isBattle
+      .button-wrap
+        a(href="/playground/battle")
+          button.button-battle 배틀 시작
+    else
+      .button-wrap
+        if x !== 9
+          form(action="/playground/east", method="post")
+            input.button-location(type="submit", value="➡ 동")
+        if x !== 0
+          form(action="/playground/west", method="post")
+            input.button-location(type="submit", value="⬅ 서")
+        if y !== 0
+          form(action="/playground/south", method="post")
+            input.button-location(type="submit", value="⬇ 남")
+        if y !== 9
+          form(action="/playground/north", method="post")
+            input.button-location(type="submit", value="⬆ 북")
+    //.button-wrap
+    //  button.button-dir#control ➡ 동
+    //  button(onclick= 'sendDir("1")').button-dir ⬅ 서
+    //  button(onclick='sendDir("2")').button-dir ⬇ 남
+    //  button(onclick='sendDir("3")').button-dir ⬆ 북
+
+  //script.
+  //  document.getElementById('#{control}').addEventListener('click', () => console.log("done"))
+  //
+  //  const sendDir = function(direction) {
+  //    console.log("done");
+  //
+  //    // return await axios.post({
+  //    //   "url": "/playground",
+  //    //   "data": {direction},
+  //    // });
+  //  };
+  //  sendDir(1);

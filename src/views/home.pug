@@ -1,0 +1,95 @@
+extends base/base.pug
+
+block contents
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+  style.
+    h1 {
+      text-align: center;
+      margin: 30px;
+    }
+
+    .player-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .player {
+      margin: 0 20px;
+      border: 1px solid #6998ab;
+      padding: 20px;
+      width: 150px;
+    }
+
+    .player-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #6998ab;
+    }
+
+    .button-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .button-random {
+      padding: 15px 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: black;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      margin: 30px 10px 10px;
+    }
+
+    button:hover {
+      cursor: pointer;
+    }
+
+    .random-message {
+      text-align: center;
+    }
+
+    .button-home {
+      padding: 15px 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #6998ab;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      margin: 30px 10px;
+    }
+
+  body
+    h1 #{ gameTitle }
+
+    if isAuthenticated
+      .player-wrap
+        .player
+          .player-title 나의 스탯
+          div ✓ HP: #{ hp } / 10
+          div ✓ 공격력: #{ str }
+          div ✓ 방어력: #{ def }
+
+      if randomStatNum > 0
+        .button-wrap
+          a(href="/random")
+            button.button-random 🔮다시 돌리기🔮
+        .random-message #{ randomStatNum }회 남았습니다.
+      .button-wrap
+        a(href="/playground")
+          button.button-home 게임 시작
+        a(href="/logout")
+          button.button-home 로그아웃
+
+    if !isAuthenticated
+      .button-wrap
+        a(href="/login")
+          button.button-home 로그인
+        a(href="/signup")
+          button.button-home 회원가입

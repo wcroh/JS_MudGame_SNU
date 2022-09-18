@@ -1,0 +1,69 @@
+extends base/base.pug
+
+block contents
+  head
+
+  style.
+    .battle-title {
+      font-weight: bold;
+      font-size: 26px;
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .player-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .player {
+      margin: 0 20px;
+      border: 1px solid #6998ab;
+      padding: 20px;
+      width: 150px;
+    }
+
+    .player-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #6998ab;
+    }
+
+    .button-location {
+      width: 50px;
+      height: 50px;
+      border: none;
+      border-radius: 5px;
+      background-color: #6998ab;
+      color: white;
+      font-weight: bold;
+      margin: 10px;
+    }
+
+    .button-location:hover {
+      cursor: pointer;
+    }
+
+  body
+    .battle-title #{ monster }로부터 무사히 도망쳤습니다! 💨
+    .player-wrap
+      .player
+        .player-title 나의 스탯
+        div ✓ HP: #{ hp } / 10
+        div ✓ 공격력: #{ str }
+        div ✓ 방어력: #{ def }
+    .button-wrap
+      if x !== 9
+        form(action="/playground/east", method="post")
+          input.button-location(type="submit", value="➡ 동")
+      if x !== 0
+        form(action="/playground/west", method="post")
+          input.button-location(type="submit", value="⬅ 서")
+      if y !== 0
+        form(action="/playground/south", method="post")
+          input.button-location(type="submit", value="⬇ 남")
+      if y !== 9
+        form(action="/playground/north", method="post")
+          input.button-location(type="submit", value="⬆ 북")
+    // 이동 버튼이 들어갈 자리입니다.
